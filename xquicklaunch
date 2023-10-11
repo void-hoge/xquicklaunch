@@ -6,9 +6,9 @@ import os
 import sys
 
 KEY_BINDS = {
-    ('1', X.Mod1Mask | X.ControlMask) : 'urxvt',
-    ('2', X.Mod1Mask | X.ControlMask) : 'emacs',
-    ('3', X.Mod1Mask | X.ControlMask) : 'google-chrome',
+    ('1', X.Mod1Mask | X.ControlMask) : 'urxvt &',
+    ('2', X.Mod1Mask | X.ControlMask) : 'emacs &',
+    ('3', X.Mod1Mask | X.ControlMask) : 'google-chrome &',
     ('v', X.Mod1Mask | X.ControlMask) : 'pkill hogemonitor || hogemonitor 1 &',
     ('p', X.Mod1Mask | X.ControlMask) : 'pkill xkbpointer && xset r || xkbpointer &',
 }
