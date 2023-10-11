@@ -13,6 +13,7 @@
 - python-xlib
 
 ## Configures
+- The default config file path is `$HOME/.config/xquicklaunch.conf`
 - [xquicklaunch.conf](./xquicklaunch.conf)
 
 ```
