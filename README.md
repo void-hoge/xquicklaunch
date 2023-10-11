@@ -26,4 +26,4 @@ KEY_BINDS = {
 
 - Keybindings and commands are defined as Python dictionary items.
   - Each item is described as `(<key>, <modifier_mask>) : <command>`.
-  - Add `&` at the end of the command asynchronously.
+  - Add `&` at the end of the command to execute asynchronously.
