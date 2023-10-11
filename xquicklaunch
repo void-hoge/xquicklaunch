@@ -1,16 +1,12 @@
 #!/usr/bin/env python3
 
 from Xlib import X, XK, display
-
 import os
-import sys
 
 KEY_BINDS = {
-    ('1', X.Mod1Mask | X.ControlMask) : 'urxvt &',
-    ('2', X.Mod1Mask | X.ControlMask) : 'emacs &',
+    ('1', X.Mod1Mask | X.ControlMask) : 'gnome-terminal &',
+    ('2', X.Mod1Mask | X.ControlMask) : 'code &',
     ('3', X.Mod1Mask | X.ControlMask) : 'google-chrome &',
-    ('v', X.Mod1Mask | X.ControlMask) : 'pkill hogemonitor || hogemonitor 1 &',
-    ('p', X.Mod1Mask | X.ControlMask) : 'pkill xkbpointer && xset r || xkbpointer &',
 }
 
 class xquicklaunch:
@@ -43,5 +39,10 @@ class xquicklaunch:
                     os.system(command)
 
 if __name__ == '__main__':
+    try:
+        with open(f'{os.getenv("HOME")}/.config/xquicklaunch.conf') as config:
+            exec(config.read(), globals())
+    except FileNotFoundError:
+        pass    
     xql = xquicklaunch()
     xql.mainloop()
