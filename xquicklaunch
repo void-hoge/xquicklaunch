@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+
+from Xlib import X, XK, display
+
+import os
+import sys
+
+KEY_BINDS = {
+    ('1', X.Mod1Mask | X.ControlMask) : 'urxvt',
+    ('2', X.Mod1Mask | X.ControlMask) : 'emacs',
+    ('3', X.Mod1Mask | X.ControlMask) : 'google-chrome',
+    ('v', X.Mod1Mask | X.ControlMask) : 'pkill hogemonitor || hogemonitor 1 &',
+    ('p', X.Mod1Mask | X.ControlMask) : 'pkill xkbpointer && xset r || xkbpointer &',
+}
+
+class xquicklaunch:
+    def __init__(self):
+        self.display = display.Display()
+        self.screen = self.display.screen()
+        self.keybinds = {}
+        self.grab_keys()
+
+    def grab_keys(self):
+        for (key, modifier), command in KEY_BINDS.items():
+            keysym = XK.string_to_keysym(key)
+            keycode = self.display.keysym_to_keycode(keysym)
+            if modifier is None:
+                continue
+            self.screen.root.grab_key(
+                keycode, modifier, True,
+                X.GrabModeAsync, X.GrabModeAsync)
+            self.keybinds[(keycode, modifier)] = command
+            
+    def mainloop(self):
+        while True:
+            event = self.display.next_event()
+            if event.type == X.KeyPress:
+                keycode = event.detail
+                modifier = event.state
+                entry = (keycode, modifier)
+                command = self.keybinds.get(entry, None)
+                if command:
+                    os.system(command)
+
+if __name__ == '__main__':
+    xql = xquicklaunch()
+    xql.mainloop()
